@@ -7,12 +7,12 @@ from .views import PostViewSet, CommentViewSet
 
 router = DefaultRouter()
 router.register(
-    'posts',
+    'api/v1/posts',
     PostViewSet,
     basename='posts',
 )
 router.register(
-    r'posts/(?P<post_id>\d+)/comments',
+    r'api/v1/posts/(?P<post_id>\d+)/comments',
     CommentViewSet,
     basename='comments',
 )
