@@ -1,10 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.text import Truncator
+
 
 User = get_user_model()
 
 
 class Post(models.Model):
+    """Модель приложения POSTS, отвечает за создание постов"""
     text = models.TextField()
     pub_date = models.DateTimeField(
         'Дата публикации', auto_now_add=True
@@ -14,13 +17,15 @@ class Post(models.Model):
     )
     image = models.ImageField(
         upload_to='posts/', null=True, blank=True
-    )  # поле для картинки
+    )
 
     def __str__(self):
+        self.text = Truncator(self.text).words(10)
         return self.text
 
 
 class Comment(models.Model):
+    """Модель приложения POSTS, отвечает за создание комментариев к постам"""
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='comments'
     )
